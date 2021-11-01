@@ -8,11 +8,12 @@ def login():
     if 'username' in content and 'password' in content:
         username = content['username']
         password = content['password']
-        if username == 'admin' and password == 'anus':
-            return jsonify({'login': 'successful'}), 200
+        if username == 'admin' and password == 'uranus':
+            return jsonify({'login': 'SUCCESFUL!'}), 200
         else:
-            return jsonify({'login': 'unsuccessful'}), 401
+            return jsonify({'login': 'unsuccessful :('}), 401
 
 app.run()
 
 # curl -i -X POST -H "Content-Type:application/json" -d "{\"username\": \"admin\",  \"password\" : \"Baggins\" }" http://localhost:5000/login
+# python main.py -H http://localhost:5000/login -W rockyou-75.txt -D '{"username": "admin", "password" : "FUZZ"}'

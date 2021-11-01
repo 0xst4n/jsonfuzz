@@ -1,6 +1,4 @@
-import argparse
-import urllib.request
-import json
+import argparse, requests, json
 from os.path import exists
 
 parser = argparse.ArgumentParser(description='JsonFuzz')
@@ -30,9 +28,34 @@ if "http" not in args.H:
 if not exists(args.W):
     parser.error("-W: wordlist does not exist")
 
-print(args.D)
 if not is_json(args.D):
     parser.error("-D: input valid JSON") 
+
+if "FUZZ" not in args.D:
+    parser.error("-D: input must contain FUZZ keyword")
+
+url = args.H
+wordlist_location = args.W
+input_data = args.D
+headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
+wordlist = open(wordlist_location, 'r')
+lines = wordlist.readlines()
+
+count = len(lines)
+index = 0
+
+for p in lines:
+  p = p.strip()
+  data = input_data.replace("FUZZ", p)
+  r = requests.post(args.H, data=data, headers=headers)
+  print(f'\r {index}/{count}', end='')
+  index += 1
+  if (r.status_code == 200):
+    print(f"\nStatus code 200 with payload: {data}")
+    check = input("Continue? (y/n):")
+    if check.lower() != "y":
+      break
 
 # TODO:
 # add FUZZ to json
