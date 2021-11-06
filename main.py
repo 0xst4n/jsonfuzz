@@ -49,17 +49,15 @@ for p in lines:
   p = p.strip()
   data = input_data.replace("FUZZ", p)
   r = requests.post(args.H, data=data, headers=headers)
-  print(f'\r {index}/{count}', end='')
+  print(f'\r{index}/{count} requests', end='')
   index += 1
   if (r.status_code == 200):
-    print(f"\nStatus code 200 with payload: {data}")
-    check = input("Continue? (y/n):")
+    print()
+    print(f"RESPONSE: {r.text.strip()}")
+    print(f"CODE: {r.status_code}")
+    print(f"PAYLOAD: {data}")
+    check = input("Continue? (y/n): ")
     if check.lower() != "y":
       break
-
-# TODO:
-# add FUZZ to json
-# do post request
-# read wordlist 
 
 

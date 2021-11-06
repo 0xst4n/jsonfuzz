@@ -16,4 +16,4 @@ def login():
 app.run()
 
 # curl -i -X POST -H "Content-Type:application/json" -d "{\"username\": \"admin\",  \"password\" : \"Baggins\" }" http://localhost:5000/login
-# python main.py -H http://localhost:5000/login -W rockyou-75.txt -D '{"username": "admin", "password" : "FUZZ"}'
+# python main.py -H http://127.0.0.1:5000/login -W rockyou-75.txt -D '{"username": "admin", "password" : "FUZZ"}'
