@@ -8,7 +8,7 @@ def login():
     if 'username' in content and 'password' in content:
         username = content['username']
         password = content['password']
-        if username == 'admin' and password == 'uranus':
+        if (username == 'admin' and password == 'uranus') or (username == 'admin' and password == 'nicole'):
             return jsonify({'login': 'SUCCESFUL!'}), 200
         else:
             return jsonify({'login': 'unsuccessful :('}), 401
