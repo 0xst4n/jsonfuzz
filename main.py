@@ -1,3 +1,6 @@
+# Simple single parameter JSON fuzzer
+# example: python main.py -u http://127.0.0.1:5000/login -w rockyou-75.txt -d '{"username": "admin", "password" : "FUZZ"}'
+
 import argparse, requests, json
 from argparse import RawTextHelpFormatter
 from os.path import exists
@@ -27,21 +30,21 @@ def is_json(myjson):
   return True
 
 if not args.w or not args.u or not args.d:
-    parser.error("Required arguments: -W, -H, -D")
+    parser.error("Required arguments: -w, -u, -d")
     quit()
 
 if "http" not in args.u:
-    parser.error("-H: must be an url to a website/API/endpoint") 
+    parser.error("-u: must be an url to a website/API/endpoint") 
     quit()
 
 if not exists(args.w):
-    parser.error("-W: wordlist does not exist")
+    parser.error("-w: wordlist does not exist")
 
 if not is_json(args.d):
-    parser.error("-D: invalid JSON") 
+    parser.error("-d: invalid JSON") 
 
 if "FUZZ" not in args.d:
-    parser.error("-D: input must contain FUZZ keyword")
+    parser.error("-d: input must contain FUZZ keyword")
 
 if not args.c:
     print(f"No status codes selected, using defaults: {colored(','.join(str(x) for x in status_codes),  'green')}")
